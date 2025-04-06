@@ -24,7 +24,7 @@ class MePatchIn(ModelSchema):
     def validate_gender(cls, v):
         allowed_genders = UserProfile.GENDER_CHOICES.keys()
         if v not in allowed_genders:
-            raise ValueError(f'gender must be one of {", ".join(allowed_genders)}')
+            raise ValueError(f"gender must be one of {', '.join(allowed_genders)}")
         return v
 
     @field_validator("username")

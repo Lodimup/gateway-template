@@ -7,6 +7,7 @@ import hashlib
 
 from appcore.services.gen_token import gen_token
 
+
 # fmt: off
 def gen_random_username():
     """Generate a random username in the format 'adjective-animal-someHash'."""
