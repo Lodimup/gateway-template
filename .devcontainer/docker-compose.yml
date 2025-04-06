@@ -36,5 +36,13 @@ services:
     restart: unless-stopped
     ports:
       - 6379:6379
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
 volumes:
   postgres-data:
