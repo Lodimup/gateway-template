@@ -1,7 +1,7 @@
 from pydantic_settings import BaseSettings
 
 
-class APP_SETTINGS(BaseSettings):
+class AppSettings(BaseSettings):
     DEPLOYENV: str
     DB_NAME: str
     DB_USER: str
@@ -25,4 +25,4 @@ class APP_SETTINGS(BaseSettings):
     AWS_STORAGE_BUCKET_NAME: str
 
 
-APP_SETTINGS = APP_SETTINGS()
+AppSettings = AppSettings()

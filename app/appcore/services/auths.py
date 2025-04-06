@@ -2,7 +2,7 @@ from typing import Literal
 
 from ninja.security import HttpBearer
 
-from app.app_settings import APP_SETTINGS
+from app.app_settings import AppSettings
 
 
 class ServiceBearerTokenAuth(HttpBearer):
@@ -17,7 +17,7 @@ class ServiceBearerTokenAuth(HttpBearer):
         Returns:
             Session | None: session object if authenticated, None otherwise
         """
-        if token == APP_SETTINGS.SERVICE_TOKEN:
+        if token == AppSettings.SERVICE_TOKEN:
             return True
 
         return None
