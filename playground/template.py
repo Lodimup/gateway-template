@@ -13,4 +13,5 @@ django.setup()
 ###############################################################################
 from appaccount.models import User
 
+
 User.objects.all()
