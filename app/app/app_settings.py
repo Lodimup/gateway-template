@@ -25,4 +25,4 @@ class AppSettings(BaseSettings):
     AWS_STORAGE_BUCKET_NAME: str
 
 
-AppSettings = AppSettings()
+APP_SETTINGS = AppSettings()

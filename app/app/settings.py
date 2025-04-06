@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
-from app.app_settings import AppSettings
+from app.app_settings import APP_SETTINGS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,14 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = AppSettings.SECRET_KEY
+SECRET_KEY = APP_SETTINGS.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = AppSettings.DEBUG
+DEBUG = APP_SETTINGS.DEBUG
 
 
-ALLOWED_HOSTS = AppSettings.ALLOWED_HOSTS
-CORS_ALLOWED_ORIGINS = AppSettings.CORS_ALLOWED_ORIGINS
+ALLOWED_HOSTS = APP_SETTINGS.ALLOWED_HOSTS
+CORS_ALLOWED_ORIGINS = APP_SETTINGS.CORS_ALLOWED_ORIGINS
 
 # Application definition
 
@@ -88,11 +88,11 @@ WSGI_APPLICATION = "app.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "HOST": AppSettings.DB_HOST,
-        "NAME": AppSettings.DB_NAME,
-        "USER": AppSettings.DB_USER,
-        "PASSWORD": AppSettings.DB_PASS,
-        "PORT": AppSettings.DB_PORT,
+        "HOST": APP_SETTINGS.DB_HOST,
+        "NAME": APP_SETTINGS.DB_NAME,
+        "USER": APP_SETTINGS.DB_USER,
+        "PASSWORD": APP_SETTINGS.DB_PASS,
+        "PORT": APP_SETTINGS.DB_PORT,
     },
     "OPTIONS": {
         "pool": True,
@@ -144,14 +144,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # S3
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_ACCESS_KEY_ID = AppSettings.AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY = AppSettings.AWS_SECRET_ACCESS_KEY
-AWS_STORAGE_BUCKET_NAME = AppSettings.AWS_STORAGE_BUCKET_NAME
-AWS_S3_ENDPOINT_URL = AppSettings.AWS_S3_ENDPOINT_URL
+AWS_ACCESS_KEY_ID = APP_SETTINGS.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = APP_SETTINGS.AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME = APP_SETTINGS.AWS_STORAGE_BUCKET_NAME
+AWS_S3_ENDPOINT_URL = APP_SETTINGS.AWS_S3_ENDPOINT_URL
 
 # Celery Task Scheduler
-CELERY_BROKER_URL = AppSettings.CELERY_BROKER_URL
-CELERY_RESULT_BACKEND = AppSettings.CELERY_RESULT_BACKEND
+CELERY_BROKER_URL = APP_SETTINGS.CELERY_BROKER_URL
+CELERY_RESULT_BACKEND = APP_SETTINGS.CELERY_RESULT_BACKEND
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_TASK_ACKS_LATE = True
 
@@ -159,7 +159,7 @@ CELERY_TASK_ACKS_LATE = True
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": AppSettings.REDIS_CACHE_URL,
+        "LOCATION": APP_SETTINGS.REDIS_CACHE_URL,
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
