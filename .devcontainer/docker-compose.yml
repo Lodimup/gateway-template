@@ -46,3 +46,4 @@ services:
       - rabbitmq-data:/var/lib/rabbitmq
 volumes:
   postgres-data:
+  rabbitmq-data:
