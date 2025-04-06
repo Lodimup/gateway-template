@@ -34,15 +34,10 @@ services:
   redis:
     image: redis:latest
     restart: unless-stopped
-    ports:
-      - 6379:6379
-
+  # rabbitmq 5672:5672, 15672:15672
   rabbitmq:
     image: rabbitmq:4-management
     restart: unless-stopped
-    ports:
-      - "5672:5672"
-      - "15672:15672"
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 volumes:
