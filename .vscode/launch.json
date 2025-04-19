@@ -16,5 +16,22 @@
             "django": true,
             "justMyCode": true
         }
+    ,
+        {
+            "name": "Python: Hypercorn (Django ASGI)",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/app",
+            "program": "${workspaceFolder}/.venv/bin/hypercorn",
+            "args": [
+                "app.asgi:application",
+                "--reload",
+                "-b",
+                "0.0.0.0:8000"
+            ],
+            "envFile": "${workspaceFolder}/.env",
+            "justMyCode": true,
+            "django": false
+        }
     ]
 }
