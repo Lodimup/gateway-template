@@ -48,6 +48,7 @@ async def get_authenticated_async_route(request):
     Sample for ABearerTokenAuth and further queries in async route.
     """
     session = request.auth
+    # user is already available but select user again to prefetch to be used in UserSchema
     user = (
         await User.objects.filter(id=session.user_id)
         .prefetch_related("groups")
