@@ -3,6 +3,8 @@ from appaccount.services.auths import ABearerTokenAuth
 from appdemo.serializers.demos import SvActFormFileDemoPostIn
 from ninja import Form, ModelSchema, Router, UploadedFile
 
+from app.asgi import broker
+
 router = Router(tags=["demos"])
 
 
@@ -56,3 +58,13 @@ async def get_authenticated_async_route(request):
         .afirst()
     )
     return user
+
+
+@router.post("produce-fast-stream/", auth=None)
+async def produce_fast_stream(request):
+    """
+    Endpoint to produce a message to the fast stream.
+    """
+    await broker.publish("fast-stream", "default")
+
+    return {"message": "Message produced to fast stream"}

@@ -13,7 +13,11 @@ class CelerySettings(BaseSettings):
     CELERY_RESULT_BACKEND: str
 
 
-class AppSettings(S3Settings, CelerySettings, BaseSettings):
+class FastStreamSettings(BaseSettings):
+    FAST_STREAM_BROKER_URL: str
+
+
+class AppSettings(S3Settings, CelerySettings, FastStreamSettings, BaseSettings):
     DEPLOYENV: str
     DB_NAME: str
     DB_USER: str

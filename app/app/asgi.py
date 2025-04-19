@@ -1,16 +1,28 @@
-"""
-ASGI config for app project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
-"""
-
 import os
+from contextlib import asynccontextmanager
 
 from django.core.asgi import get_asgi_application
+from faststream.rabbit import RabbitBroker
+from starlette.applications import Starlette
+from starlette.routing import Mount
+
+from app.app_settings import APP_SETTINGS
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
 
-application = get_asgi_application()
+broker = RabbitBroker(APP_SETTINGS.FAST_STREAM_BROKER_URL)
+
+
+@asynccontextmanager
+async def broker_lifespan(app):
+    await broker.start()
+    try:
+        yield
+    finally:
+        await broker.close()
+
+
+application = Starlette(
+    routes=(Mount("/", get_asgi_application()),),
+    lifespan=broker_lifespan,
+)
