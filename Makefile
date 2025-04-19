@@ -20,11 +20,15 @@ drop-tables:
 	exit 0;
 # Re-initialize project
 init-proj: drop-tables m
-# Run hypercorn WSGI
+# Run hypercorn ASGI server
 hypercorn:
 	cd app &&\
 	python manage.py collectstatic --noinput &&\
 	hypercorn app.asgi:application --workers 4 -b 0.0.0.0:8000
+# Run hypercorn ASGI server with reload, if you are not using debugger, run gateway using this.
+hypercorn-r:
+	cd app &&\
+	hypercorn app.asgi:application --reload --workers 4 -b 0.0.0.0:8000
 # Run celery worker
 run-worker:
 	cd app &&\
