@@ -1,7 +1,19 @@
 from pydantic_settings import BaseSettings
 
 
-class AppSettings(BaseSettings):
+class S3Settings(BaseSettings):
+    AWS_S3_ENDPOINT_URL: str
+    AWS_ACCESS_KEY_ID: str
+    AWS_SECRET_ACCESS_KEY: str
+    AWS_STORAGE_BUCKET_NAME: str
+
+
+class CelerySettings(BaseSettings):
+    CELERY_BROKER_URL: str
+    CELERY_RESULT_BACKEND: str
+
+
+class AppSettings(S3Settings, CelerySettings, BaseSettings):
     DEPLOYENV: str
     DB_NAME: str
     DB_USER: str
@@ -15,14 +27,7 @@ class AppSettings(BaseSettings):
     SECRET_KEY: str
 
     SERVICE_TOKEN: str
-    CELERY_BROKER_URL: str
-    CELERY_RESULT_BACKEND: str
     REDIS_CACHE_URL: str
 
-    AWS_S3_ENDPOINT_URL: str
-    AWS_ACCESS_KEY_ID: str
-    AWS_SECRET_ACCESS_KEY: str
-    AWS_STORAGE_BUCKET_NAME: str
 
-
-APP_SETTINGS = AppSettings()
+APP_SETTINGS = AppSettings()  # type: ignore
