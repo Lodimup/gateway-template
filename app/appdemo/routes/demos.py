@@ -27,7 +27,7 @@ def post_form_action_upload(
 class UserSchema(ModelSchema):
     class Meta:
         model = User
-        fields = "__all__"
+        exclude = ["password"]
 
 
 @router.get(
@@ -44,4 +44,14 @@ def get_authenticated_sync_route(request):
     auth=ABearerTokenAuth(),
 )
 async def get_authenticated_async_route(request):
-    return request.auth.user
+    """
+    Sample for ABearerTokenAuth and further queries in async route.
+    """
+    session = request.auth
+    user = (
+        await User.objects.filter(id=session.user_id)
+        .prefetch_related("groups")
+        .prefetch_related("user_permissions")
+        .afirst()
+    )
+    return user

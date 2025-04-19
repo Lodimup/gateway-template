@@ -110,13 +110,9 @@ class ABearerTokenAuth(HttpBearer):
         Returns:
             Session: session object
         """
-        session: Session | None = (
-            await Session.objects.filter(access_token=token)
-            .select_related("user")
-            .prefetch_related("user__groups")
-            .prefetch_related("user__user_permissions")
-            .afirst()
-        )
+        session: Session | None = await Session.objects.filter(
+            access_token=token
+        ).afirst()
         if session is None:
             return None
         if session.is_expired():

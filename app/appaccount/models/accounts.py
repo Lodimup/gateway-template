@@ -1,9 +1,8 @@
 import uuid
-from django.db import models
 
 from appcore.models.commons import BaseAutoDate, BaseUUID
-
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 class User(AbstractUser):
@@ -20,12 +19,13 @@ class UserProfile(BaseUUID, BaseAutoDate):
     Model for storing user profiles.
     """
 
-    GENDER_CHOICES = {
-        "m": "Male",
-        "f": "Female",
-        "n": "Non-binary",
-        "o": "Other",
-    }
+    GENDER_CHOICES = [
+        ("m", "Male"),
+        ("f", "Female"),
+        ("n", "Non-binary"),
+        ("o", "Other"),
+        ("u", "Unknown"),
+    ]
 
     user = models.OneToOneField(
         User,
