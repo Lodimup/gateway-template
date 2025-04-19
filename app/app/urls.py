@@ -16,6 +16,7 @@ Including another URLconf
 """
 
 from appaccount.api import router as account_router
+from appaccount.services.auths import BearerTokenAuth
 from appdemo.api import router as demo_router  # remove when using this template
 from django.contrib import admin
 from django.urls import path
@@ -25,7 +26,9 @@ from app import views
 
 api = NinjaAPI(docs=Swagger({"persistAuthorization": True}))
 api.add_router("/account", account_router)
-api.add_router("/demo", demo_router)  # remove when using this template
+api.add_router(
+    "/demo", demo_router, auth=BearerTokenAuth()
+)  # remove when using this template
 
 urlpatterns = [
     path("", views.index, name="index"),  # Add root URL path to show the index

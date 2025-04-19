@@ -1,11 +1,11 @@
-from typing import Literal
-from appaccount.models.auths import Session
-from appaccount.models.accounts import User
-from ninja.security import HttpBearer
-import random
 import hashlib
+import random
+from typing import Literal
 
+from appaccount.models.accounts import User
+from appaccount.models.auths import Session
 from appcore.services.gen_token import gen_token
+from ninja.security import HttpBearer
 
 
 # fmt: off
@@ -89,6 +89,34 @@ class BearerTokenAuth(HttpBearer):
             Session: session object
         """
         session: Session | None = Session.objects.filter(access_token=token).first()
+        if session is None:
+            return None
+        if session.is_expired():
+            return None
+
+        return session
+
+
+class ABearerTokenAuth(HttpBearer):
+    """Authenthicate using user's access_token."""
+
+    async def authenticate(self, request, token) -> Session | None:
+        """This is a function to authenticate the token.
+
+        Args:
+            request (HttpRequest): request object
+            token (str): token
+
+        Returns:
+            Session: session object
+        """
+        session: Session | None = (
+            await Session.objects.filter(access_token=token)
+            .select_related("user")
+            .prefetch_related("user__groups")
+            .prefetch_related("user__user_permissions")
+            .afirst()
+        )
         if session is None:
             return None
         if session.is_expired():
