@@ -75,6 +75,7 @@ async def post_produce_fast_stream(
 ):
     """
     Endpoint to produce a message to the fast stream in the demo queue.
+    Note: depending on the security requirements, send UUID linked to data or actual payload.
     """
     await broker.publish(DemoQueueSchema(**payload.model_dump()), "demo")
 
