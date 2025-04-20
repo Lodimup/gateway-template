@@ -6,7 +6,7 @@ router = RabbitRouter()
 
 
 @router.subscriber("demo")
-async def base_handler(message=DemoQueueSchema):
+async def faststream_django_orm_demo_handler(message=DemoQueueSchema):
     qs = User.objects.all()
     async for user in qs:
         print(user)
