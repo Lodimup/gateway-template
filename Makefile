@@ -26,7 +26,7 @@ hypercorn:
 	python manage.py collectstatic --noinput &&\
 	hypercorn app.asgi:application --workers 4 -b 0.0.0.0:8000
 # Run hypercorn ASGI server with reload, if you are not using debugger, run gateway using this.
-hypercorn-r:
+hypercorn-dev:
 	cd app &&\
 	hypercorn app.asgi:application --reload --workers 4 -b 0.0.0.0:8000
 # Run celery worker
@@ -37,3 +37,9 @@ run-worker:
 run-beat:
 	cd app &&\
 	poetry run celery -A app beat -l INFO
+
+# FastStream
+
+fs:
+	cd app &&\
+	uv run faststream run fs:app --reload
