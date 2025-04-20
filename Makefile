@@ -39,7 +39,7 @@ run-beat:
 	poetry run celery -A app beat -l INFO
 
 # FastStream
-
-fs:
+# Run FastStream ASGI server
+fs-dev:
 	cd app &&\
 	uv run faststream run fs:app --reload
