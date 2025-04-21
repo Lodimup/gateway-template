@@ -42,4 +42,4 @@ run-beat:
 # Run FastStream ASGI server
 fs-dev:
 	cd app &&\
-	uv run faststream run fs:app --reload
+	uv run faststream run serve_faststream:app --reload
