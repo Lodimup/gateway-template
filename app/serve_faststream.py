@@ -1,12 +1,14 @@
-# ruff: noqa: E402
-###############################################################################
-import os
+import sys
 
-import django
+if "bin/faststream" in sys.argv[0]:
+    import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
-django.setup()
-###############################################################################
+    import django
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
+    django.setup()
+
+
 from appfaststream.routes.demo import router as demo_router
 from faststream import FastStream
 from faststream.rabbit import RabbitBroker
