@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+import logfire
+
 from app.app_settings import APP_SETTINGS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -168,3 +170,14 @@ CACHES = {
 
 # Extends the default user model
 AUTH_USER_MODEL = "appaccount.User"
+
+# Logfire
+logfire.configure(
+    send_to_logfire="if-token-present",
+    console=False,
+    environment=APP_SETTINGS.DEPLOYENV,
+    token=APP_SETTINGS.LOGFIRE_TOKEN,
+)
+logfire.instrument_django()
+logfire.instrument_psycopg()
+logfire.instrument_httpx()

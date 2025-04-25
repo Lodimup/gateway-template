@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic_settings import BaseSettings
 
 
@@ -17,8 +19,8 @@ class FastStreamSettings(BaseSettings):
     FAST_STREAM_BROKER_URL: str
 
 
-class AppSettings(S3Settings, CelerySettings, FastStreamSettings, BaseSettings):
-    DEPLOYENV: str
+class DjangoSettings(BaseSettings):
+    DEPLOYENV: Literal["local", "dev", "stg", "prod"]
     DB_NAME: str
     DB_USER: str
     DB_PASS: str
@@ -32,6 +34,20 @@ class AppSettings(S3Settings, CelerySettings, FastStreamSettings, BaseSettings):
 
     SERVICE_TOKEN: str
     REDIS_CACHE_URL: str
+
+
+class LogfireSettings(BaseSettings):
+    LOGFIRE_TOKEN: str | None = None
+
+
+class AppSettings(
+    S3Settings,
+    CelerySettings,
+    FastStreamSettings,
+    DjangoSettings,
+    LogfireSettings,
+    BaseSettings,
+): ...
 
 
 APP_SETTINGS = AppSettings()  # type: ignore
