@@ -9,18 +9,8 @@ if "bin/fastapi" in sys.argv[0]:
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
     django.setup()
 
-from typing import Union
-
+from appdemo.fastapi_routes.demo import router as demo_router
 from fastapi import FastAPI
 
-app = FastAPI()
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+app = FastAPI(root_path="/ws")
+app.include_router(demo_router, prefix="/demo", tags=["demo"])
