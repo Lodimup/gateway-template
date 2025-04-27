@@ -1,6 +1,9 @@
+"""
+FastAPI application for serving websocket connections.
+"""
+
 import sys
 
-print(sys.argv[0])
 if "bin/fastapi" in sys.argv[0]:
     import os
 
