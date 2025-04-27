@@ -5,8 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python Debugger: FastAPI",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/app",
+            "program": "${workspaceFolder}/.venv/bin/fastapi",
+            "args": [
+                "dev",
+                "serve_fastapi.py"
+            ],
+            "envFile": "${workspaceFolder}/.env",
+            "jinja": true
+        },
+        {
             "name": "Python: Hypercorn (Django ASGI)",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "cwd": "${workspaceFolder}/app",
             "program": "${workspaceFolder}/.venv/bin/hypercorn",
@@ -22,7 +35,7 @@
         },
         {
             "name": "Python: Django",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/app/manage.py",
             "args": [
