@@ -63,7 +63,7 @@ class ConnectionManager:
 
     async def broadcast(self, message: str):
         """
-        Broadcast to all clients connected to `this` FastAPI istances.
+        Broadcast to all clients connected to `this` FastAPI instances.
         To broadcast to all clients connected to all FastAPI instances, use RabbitMQ.
         """
         for connection in self.active_connections:
