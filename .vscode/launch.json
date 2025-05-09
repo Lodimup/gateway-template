@@ -5,8 +5,8 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Hypercorn (Django ASGI)",
-            "type": "python",
+            "name": "Django ASGI(Hypercorn)",
+            "type": "debugpy",
             "request": "launch",
             "cwd": "${workspaceFolder}/app",
             "program": "${workspaceFolder}/.venv/bin/hypercorn",
@@ -21,8 +21,35 @@
             "django": false
         },
         {
-            "name": "Python: Django",
-            "type": "python",
+            "name": "FastAPI",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/app",
+            "program": "${workspaceFolder}/.venv/bin/fastapi",
+            "args": [
+                "dev",
+                "serve_fastapi.py"
+            ],
+            "envFile": "${workspaceFolder}/.env",
+            "jinja": true
+        },
+        {
+            "name": "FastStream",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/app",
+            "program": "${workspaceFolder}/.venv/bin/faststream",
+            "args": [
+                "run",
+                "serve_faststream:app",
+                "--reload"
+            ],
+            "envFile": "${workspaceFolder}/.env",
+            "jinja": true
+        },
+        {
+            "name": "Django",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/app/manage.py",
             "args": [
