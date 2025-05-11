@@ -10,12 +10,9 @@ if "bin/faststream" in sys.argv[0]:
 
 
 from appfaststream.routes.demo import router as demo_router
+from brokers import faststream_broker
 from faststream import FastStream
-from faststream.rabbit import RabbitBroker
 
-from app.app_settings import APP_SETTINGS
+faststream_broker.include_routers(demo_router)
 
-broker = RabbitBroker(APP_SETTINGS.FAST_STREAM_BROKER_URL)
-broker.include_routers(demo_router)
-
-app = FastStream(broker)
+app = FastStream(faststream_broker)

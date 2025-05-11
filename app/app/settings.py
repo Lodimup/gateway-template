@@ -174,7 +174,7 @@ AUTH_USER_MODEL = "appaccount.User"
 # Logfire
 logfire.configure(
     send_to_logfire="if-token-present",
-    console=False,
+    # console=False,
     environment=APP_SETTINGS.DEPLOYENV,
     token=APP_SETTINGS.LOGFIRE_TOKEN,
 )

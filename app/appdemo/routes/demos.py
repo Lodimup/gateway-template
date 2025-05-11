@@ -3,7 +3,7 @@ from appaccount.services.auths import ABearerTokenAuth
 from appdemo.serializers.demos import DemoQueueSchema, SvActFormFileDemoPostIn
 from ninja import Form, ModelSchema, Router, Schema, UploadedFile
 
-from app.asgi import broker
+from app.asgi import faststream_broker
 
 router = Router(tags=["demos"])
 
@@ -77,6 +77,6 @@ async def post_produce_fast_stream(
     Endpoint to produce a message to the fast stream in the demo queue.
     Note: depending on the security requirements, send UUID linked to data or actual payload.
     """
-    await broker.publish(DemoQueueSchema(**payload.model_dump()), "demo")
+    await faststream_broker.publish(DemoQueueSchema(**payload.model_dump()), "demo")
 
     return {"message": "Message produced to fast stream"}

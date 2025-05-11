@@ -1,25 +1,21 @@
 import os
 from contextlib import asynccontextmanager
 
+from brokers import faststream_broker
 from django.core.asgi import get_asgi_application
-from faststream.rabbit import RabbitBroker
 from starlette.applications import Starlette
 from starlette.routing import Mount
 
-from app.app_settings import APP_SETTINGS
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
-
-broker = RabbitBroker(APP_SETTINGS.FAST_STREAM_BROKER_URL)
 
 
 @asynccontextmanager
 async def lifespan(app):
-    await broker.start()
+    await faststream_broker.start()
     try:
         yield
     finally:
-        await broker.close()
+        await faststream_broker.close()
 
 
 application = Starlette(
