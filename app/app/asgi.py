@@ -14,7 +14,7 @@ broker = RabbitBroker(APP_SETTINGS.FAST_STREAM_BROKER_URL)
 
 
 @asynccontextmanager
-async def broker_lifespan(app):
+async def lifespan(app):
     await broker.start()
     try:
         yield
@@ -24,5 +24,5 @@ async def broker_lifespan(app):
 
 application = Starlette(
     routes=(Mount("/", get_asgi_application()),),
-    lifespan=broker_lifespan,
+    lifespan=lifespan,
 )
