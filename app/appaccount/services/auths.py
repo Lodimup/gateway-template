@@ -2,7 +2,7 @@ import hashlib
 import random
 from typing import Literal
 
-from appaccount.models.accounts import User
+from appaccount.models.accounts import Account, User
 from appaccount.models.auths import Session
 from appcore.services.gen_token import gen_token
 from ninja.security import HttpBearer
@@ -60,15 +60,21 @@ def create_session(uid: str, provider: Literal["google"], email: str) -> Session
     Returns:
         Session: session object
     """
-    if provider == "google":
-        user: User | None = User.objects.filter(google_uid=uid).first()
-    if user is None:
+    account = Account.objects.filter(provider_account_id=uid).first()
+    if account is None:
         username = gen_random_username()
         user = User.objects.create_user(
             username=username,
             email=email,
             password=gen_token(16),
         )
+        account = Account.objects.create(
+            user=user,
+            provider=provider,
+            provider_account_id=uid,
+        )
+    else:
+        user = account.user
 
     session: Session = Session.objects.create(user=user)
 
@@ -76,7 +82,7 @@ def create_session(uid: str, provider: Literal["google"], email: str) -> Session
 
 
 class BearerTokenAuth(HttpBearer):
-    """Authenthicate using user's access_token."""
+    """Authenticate using user's access_token."""
 
     def authenticate(self, request, token) -> Session | None:
         """This is a function to authenticate the token.

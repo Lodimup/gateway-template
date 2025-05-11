@@ -9,11 +9,11 @@ req:
 # Migrate database
 m:
 	cd app &&\
-	poetry run python manage.py migrate
+	uv run python manage.py migrate
 # Make migrations
 mm:
 	cd app &&\
-	poetry run python manage.py makemigrations
+	uv run python manage.py makemigrations
 # Drop local database tables
 drop-tables:
 	psql "dbname=postgres host=db port=5432 user=postgres password=postgres" -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;" ;\
@@ -32,11 +32,11 @@ hypercorn-dev:
 # Run celery worker
 run-worker:
 	cd app &&\
-	poetry run celery -A app worker -l INFO -E
+	uv run celery -A app worker -l INFO -E
 # Run celery scheduler
 run-beat:
 	cd app &&\
-	poetry run celery -A app beat -l INFO
+	uv run celery -A app beat -l INFO
 
 # FastStream
 # Run FastStream ASGI server
