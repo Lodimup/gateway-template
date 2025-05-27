@@ -28,7 +28,11 @@
             "program": "${workspaceFolder}/.venv/bin/fastapi",
             "args": [
                 "dev",
-                "serve_fastapi.py"
+                "serve_fastapi.py",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8080"
             ],
             "envFile": "${workspaceFolder}/.env",
             "jinja": true
