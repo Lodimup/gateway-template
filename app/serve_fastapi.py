@@ -36,6 +36,6 @@ async def lifespan(app):
         await app.state.aio_pika_connection.close()
 
 
-app = FastAPI(root_path="/ws", lifespan=lifespan)
-app.include_router(demo_router, prefix="/demo", tags=["demo"])
+app = FastAPI(lifespan=lifespan)
+app.include_router(demo_router, prefix="/ws/demo", tags=["demo"])
 app.include_router(electric_router, prefix="/electric", tags=["electric"])
