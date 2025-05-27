@@ -40,6 +40,17 @@ services:
     restart: unless-stopped
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
+  # default port is 3000
+  electricsql:
+    image: electricsql/electric:canary
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres?sslmode=disable
+      ELECTRIC_STORAGE_DIR: /var/lib/electric/persistent
+      ELECTRIC_SECRET: electricsecret
+    volumes:
+      - electricsql-data:/var/lib/electric/persistent
+
 volumes:
   postgres-data:
   rabbitmq-data:
+  electricsql-data:

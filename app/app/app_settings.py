@@ -36,6 +36,19 @@ class DjangoSettings(BaseSettings):
     REDIS_CACHE_URL: str
 
 
+class ElectricSettings(BaseSettings):
+    """
+    Settings for Electric API integration.
+    ELECTRIC_API_URL: http://electricsql:3000/v1/shape
+    ELECTRIC_SOURCE_ID: Optional
+    ELECTRIC_SOURCE_SECRET: same as ELECTRIC_SECRET
+    """
+
+    ELECTRIC_URL: str
+    ELECTRIC_SOURCE_ID: str | None = None
+    ELECTRIC_SOURCE_SECRET: str
+
+
 class LogfireSettings(BaseSettings):
     LOGFIRE_TOKEN: str | None = None
 
@@ -45,6 +58,7 @@ class AppSettings(
     CelerySettings,
     FastStreamSettings,
     DjangoSettings,
+    ElectricSettings,
     LogfireSettings,
     BaseSettings,
 ): ...

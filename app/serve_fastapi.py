@@ -19,6 +19,7 @@ if "bin/fastapi" in sys.argv[0]:
     django.setup()
 
 from appdemo.fastapi_routes.demo import router as demo_router
+from apprealtime.fastapi_routes.electric import router as electric_router
 from fastapi import FastAPI
 
 
@@ -37,3 +38,4 @@ async def lifespan(app):
 
 app = FastAPI(root_path="/ws", lifespan=lifespan)
 app.include_router(demo_router, prefix="/demo", tags=["demo"])
+app.include_router(electric_router, prefix="/electric", tags=["electric"])
