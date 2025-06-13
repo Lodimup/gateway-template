@@ -11,7 +11,7 @@ class IUserInfo(BaseModel):
     email_verified: bool
 
 
-def get_userinfo(access_token: str) -> IUserInfo:
+def get_userinfo(access_token: str) -> IUserInfo | None:
     """
     Fetches user information from Google using the provided access token.
 
@@ -25,6 +25,29 @@ def get_userinfo(access_token: str) -> IUserInfo:
     url = "https://www.googleapis.com/oauth2/v3/userinfo"
     headers = {"Authorization": f"Bearer {access_token}"}
     r = httpx.get(url, headers=headers)
+    if r.status_code == 401:
+        return None
+    r.raise_for_status()
+
+    return IUserInfo(**r.json())
+
+
+async def aget_userinfo(access_token: str) -> IUserInfo | None:
+    """
+    Fetches user information from Google using the provided access token.
+
+    Args:
+        access_token (str): The OAuth 2.0 access token.
+
+    Returns:
+        IUserInfo: A Pydantic model containing user information.
+    """
+
+    url = "https://www.googleapis.com/oauth2/v3/userinfo"
+    headers = {"Authorization": f"Bearer {access_token}"}
+    r = await httpx.AsyncClient().get(url, headers=headers)
+    if r.status_code == 401:
+        return None
     r.raise_for_status()
 
     return IUserInfo(**r.json())
