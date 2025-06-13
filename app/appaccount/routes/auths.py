@@ -28,7 +28,7 @@ def post_login(request, payload: LoginPostIn):
         case "google":
             userinfo = get_userinfo(payload.access_token)
         case _:
-            return 400, {"detail": "Unsupported provider"}
+            raise HttpError(400, "Unsupported provider")
 
     if userinfo is None:
         raise HttpError(401, "Invalid access token")
