@@ -39,12 +39,12 @@ run-beat:
 	uv run celery -A app beat -l INFO
 
 # FastStream
-# Run FastStream ASGI server
+# Run FastStream worker server
 fs-dev:
 	cd app &&\
 	uv run faststream run serve_faststream:app --reload
 
 # FastAPI WebSocket server
-ws-dev:
+realtime-dev:
 	cd app &&\
 	uv run fastapi run serve_fastapi.py --port 8080 --reload
