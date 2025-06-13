@@ -22,7 +22,7 @@ router = Router(tags=["account", "auth"])
 )
 def post_login(request, payload: LoginPostIn):
     """
-    Login through using access_token. It creates a session, and a user if not exist.
+    Log in using an access token; creates a session and user if not present.
     """
     match payload.provider:
         case "google":
