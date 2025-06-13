@@ -49,7 +49,7 @@ def gen_random_username():
 # fmt: on
 
 
-def create_session(uid: str, provider: Literal["google"], email: str) -> Session:
+def create_session(uid: str, provider: Literal["google"], email: str | None) -> Session:
     """This is a function to login through service. It creates a session, and a user if not exist.
 
     Args:

@@ -1,12 +1,20 @@
 from typing import Literal
+
 from ninja import Field, Schema
 from pydantic import EmailStr
 
+PROVIDERS = Literal["google"]
+
 
 class LoginPostIn(Schema):
+    access_token: str
+    provider: PROVIDERS
+
+
+class LoginTrustedPostIn(Schema):
     uid: str
-    provider: Literal["google"]
     email: EmailStr | None = Field(None, description="Email of the user")
+    provider: PROVIDERS
 
 
 class LoginPostOut(Schema):
