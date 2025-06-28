@@ -11,17 +11,13 @@ router = Router(tags=["users", "account"])
 def get_me(request):
     """
     Get current user profile
-    gender can be one of:
-    ```
-    "m": "Male",
-    "f": "Female",
-    "n": "Non-binary",
-    "o": "Other",
-    ```
     """
     user = request.auth.user
-
-    return {**user.userprofile.__dict__, "username": user.username}
+    ret = {
+        "user": user,
+        "user_profile": user.userprofile,
+    }
+    return ret
 
 
 @router.patch(
@@ -31,13 +27,6 @@ def get_me(request):
 def patch_me(request, payload: MePatchIn):
     """
     Patch current user profile
-    gender can be one of:
-    ```
-    "m": "Male",
-    "f": "Female",
-    "n": "Non-binary",
-    "o": "Other",
-    ```
     """
     user = request.auth.user
 

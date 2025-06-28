@@ -1,6 +1,12 @@
-from ninja import ModelSchema, Field
+from appaccount.models.accounts import User, UserProfile
+from ninja import Field, ModelSchema, Schema
 from pydantic import field_validator
-from appaccount.models.accounts import UserProfile, User
+
+
+class UserSchema(ModelSchema):
+    class Meta:
+        model = User
+        fields = ["id", "username", "email"]
 
 
 class UserProfileSchema(ModelSchema):
@@ -9,12 +15,13 @@ class UserProfileSchema(ModelSchema):
         exclude = ["id", "user"]
 
 
-class MeGetOut(UserProfileSchema):
-    username: str
+class MeGetOut(Schema):
+    user: UserSchema
+    user_profile: UserProfileSchema
 
 
 class MePatchIn(ModelSchema):
-    username: str = Field(None, min_length=3, max_length=150)
+    username: str | None = Field(None, min_length=3, max_length=150)
 
     class Meta:
         model = UserProfile
@@ -22,7 +29,7 @@ class MePatchIn(ModelSchema):
 
     @field_validator("gender", check_fields=False)
     def validate_gender(cls, v):
-        allowed_genders = UserProfile.GENDER_CHOICES.keys()
+        allowed_genders = [gender[0] for gender in UserProfile.GENDER_CHOICES]
         if v not in allowed_genders:
             raise ValueError(f"gender must be one of {', '.join(allowed_genders)}")
         return v

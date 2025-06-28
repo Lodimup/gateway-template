@@ -44,13 +44,12 @@ class UserProfile(BaseUUID, BaseAutoDate):
     """
 
     GENDER_CHOICES = [
-        ("m", "Male"),
-        ("f", "Female"),
-        ("n", "Non-binary"),
-        ("o", "Other"),
-        ("u", "Unknown"),
+        ("male", "male"),
+        ("female", "female"),
+        ("non-binary", "non-binary"),
+        ("other", "other"),
+        ("unknown", "unknown"),
     ]
-
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
