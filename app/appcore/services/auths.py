@@ -8,7 +8,7 @@ from app.app_settings import APP_SETTINGS
 class ServiceBearerTokenAuth(HttpBearer):
     """Used to authenticate NextJS's server side calls"""
 
-    async def authenticate(self, request, token) -> Literal[True] | None:
+    def authenticate(self, request, token) -> Literal[True] | None:
         """This is a function to authenticate using token.
         Args:
             request (Request): request object
