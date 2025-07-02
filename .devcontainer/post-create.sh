@@ -1,9 +1,6 @@
 #! /bin/bash
-
-PRE='export $(grep -v '\''^#'\'' '
-POST='/.env | xargs)'
-CMD=$PRE$1$POST
-echo $CMD >> ~/.bashrc
+cp .devcontainer/load_env_vars.fish ~/.config/fish/functions/load_env_vars.fish
+echo load_env_vars $1/.env >> ~/.config/fish/config.fish
 
 apt update && apt install -y postgresql-client redis-tools
 uv sync
