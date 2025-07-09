@@ -1,0 +1,5 @@
+# https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html
+bind = "0.0.0.0:8000"
+workers = 16
+max_requests = 1000
+max_requests_jitter = 100
