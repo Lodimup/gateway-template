@@ -32,6 +32,7 @@ class DjangoSettings(BaseSettings):
     DEBUG: bool
     ALLOWED_HOSTS: list[str]
     CORS_ALLOWED_ORIGINS: list[str]
+    CSRF_TRUSTED_ORIGINS: list[str]
     SECRET_KEY: str
 
     SERVICE_TOKEN: str
