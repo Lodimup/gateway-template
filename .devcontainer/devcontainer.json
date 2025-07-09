@@ -19,7 +19,8 @@
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// This can be used to network with other containers or the host.
-	"forwardPorts": [8000, 8080, "db:5432"],
+	"forwardPorts": ["postgres:5432", "redis:6379", "rabbitmq:5672", "rabbitmq:15672"],
+
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "chmod +x .devcontainer/post-create.sh && .devcontainer/post-create.sh ${containerWorkspaceFolder}",
@@ -33,7 +34,8 @@
 		"vscode": {
 			"extensions": [
 				"charliermarsh.ruff",
-				"GitHub.vscode-pull-request-github"
+				"GitHub.vscode-pull-request-github",
+				"RooVeterinaryInc.roo-cline"
 			]
 		}
 	}
