@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -32,27 +30,33 @@ services:
       - postgres
       - -c
       - config_file=/etc/postgresql/postgresql.conf
+    expose:
+      - 5432
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
-  # redis default: 6379
   redis:
     image: redis:latest
     restart: unless-stopped
-  # rabbitmq 5672:5672, 15672:15672
+    expose:
+      - 6379
   rabbitmq:
     image: rabbitmq:4-management
     restart: unless-stopped
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
-  # default port is 3000
+    expose:
+      - 5672
+      - 15672  # management UI
   electricsql:
     image: electricsql/electric:latest
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres?sslmode=disable
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres?sslmode=disable
       ELECTRIC_STORAGE_DIR: /var/lib/electric/persistent
       ELECTRIC_SECRET: electricsecret
     volumes:
       - electricsql-data:/var/lib/electric/persistent
+    expose:
+      - 3000
 
 volumes:
   postgres-data:
