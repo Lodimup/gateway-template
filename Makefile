@@ -14,6 +14,8 @@ m:
 mm:
 	cd app &&\
 	uv run python manage.py makemigrations
+# Make migrations and migrate
+mmm: mm m
 # Drop local database tables
 drop-tables:
 	psql "dbname=postgres host=db port=5432 user=postgres password=postgres" -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;" ;\
