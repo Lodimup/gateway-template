@@ -26,6 +26,8 @@ class DjangoSettings(BaseSettings):
     DB_PASS: str
     DB_HOST: str
     DB_PORT: str
+    DB_POOL_MIN_SIZE: int = 1
+    DB_POOL_MAX_SIZE: int = 32
 
     DEBUG: bool
     ALLOWED_HOSTS: list[str]

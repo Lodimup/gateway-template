@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     # Own
     "appcore",
     "appaccount",
-    "appdemo",  # remove when using this template
 ]
 
 MIDDLEWARE = [
@@ -97,7 +96,10 @@ DATABASES = {
         "PORT": APP_SETTINGS.DB_PORT,
     },
     "OPTIONS": {
-        "pool": True,
+        "pool": {
+            "min_size": APP_SETTINGS.DB_POOL_MIN_SIZE,
+            "max_size": APP_SETTINGS.DB_POOL_MAX_SIZE,
+        },
     },
 }
 
