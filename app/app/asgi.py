@@ -22,3 +22,6 @@ application = Starlette(
     routes=(Mount("/", get_asgi_application()),),
     lifespan=lifespan,
 )
+
+# fixes cold start
+_ = application
