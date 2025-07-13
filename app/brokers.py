@@ -6,4 +6,4 @@ from faststream.rabbit import RabbitBroker
 
 from app.app_settings import APP_SETTINGS
 
-faststream_broker = RabbitBroker(APP_SETTINGS.FAST_STREAM_BROKER_URL)
+faststream_broker = RabbitBroker(APP_SETTINGS.FASTSTREAM_BROKER_URL)

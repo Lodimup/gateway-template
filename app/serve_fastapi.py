@@ -27,7 +27,7 @@ from fastapi import FastAPI
 async def lifespan(app):
     await faststream_broker.start()
     app.state.aio_pika_connection = await aio_pika.connect_robust(
-        APP_SETTINGS.FAST_STREAM_BROKER_URL
+        APP_SETTINGS.FASTSTREAM_BROKER_URL
     )
     try:
         yield

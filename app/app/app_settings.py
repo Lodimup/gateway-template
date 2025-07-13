@@ -16,7 +16,7 @@ class CelerySettings(BaseSettings):
 
 
 class FastStreamSettings(BaseSettings):
-    FAST_STREAM_BROKER_URL: str
+    FASTSTREAM_BROKER_URL: str
 
 
 class DjangoSettings(BaseSettings):
